@@ -1,0 +1,40 @@
+
+
+/* Write your CSS below, don't change the rules above. */
+
+
+p {
+  color: red;
+  padding: 10px;
+}
+li {
+  padding: 10px;
+}
+li[value="2"] {
+  color: black;
+}
+#id-selector-demo {
+  color: green;
+}
+li[value="4"] {
+  color: blue;
+}
+* {
+  color: black;
+  text-align: center;
+  border: solid 10px;
+}
+body {
+  border-color: purple;
+  margin: 10px;
+}
+html {
+  border-color: orange;
+  margin: 50px;
+}
+ol {
+  margin-left: -40px;
+  margin-top: -20px;
+  list-style-position: inside;
+  border-color: blue;
+}
