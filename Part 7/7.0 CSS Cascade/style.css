@@ -1,4 +1,8 @@
 /* Don't change the existing CSS. */
+#outer-box{
+  background-color: purple;
+  margin-top: 150px;
+}
 
 .box {
   background-color: blue;
@@ -9,4 +13,10 @@ p {
   color: yellow;
   margin: 0;
   padding: 0;
+}
+.white-text {
+  color: white;
+}
+.inner-box{
+  background-color: red;
 }

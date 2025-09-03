@@ -1,0 +1,26 @@
+/* Write your code here: */
+
+/* By using the group selector change h1 & h2 to blueviolet */
+
+h1, h2 {
+    color: blueviolet;
+}
+/* By using the child selector change direct p children of .box to firebrick */
+
+.box > p{
+    color: firebrick;
+}
+/* By using the descendent selector change all li inside .box to blue */
+
+.list li {
+    color: blue;
+}
+/* By using the chained selector change all li with class done to seagreen */
+li.done {
+    color: seagreen;
+}
+
+/* By using multiple combiners change all p with class done that are direct children of ul to font-size 0.5rem */
+ul > p.done {
+    font-size: 0.5rem;
+}
