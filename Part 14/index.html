@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>280-char Playground — Bootstrap</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body { background: #0f172a; color: #e6eef8; }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); }
+    .muted { color: #9aa7c7; }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h1 class="mb-3 display-6">280-character Playground</h1>
+        <p class="muted">Type your post. Live counter, automatic trim, and friendly warnings — made with Bootstrap.</p>
+
+        <div class="card p-4 mb-3">
+          <label for="tweet" class="form-label">Write your post</label>
+          <textarea id="tweet" class="form-control mb-2" rows="6" placeholder="Write something..."></textarea>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <small id="status" class="muted">0 / 280</small>
+
+            <div class="d-flex gap-2">
+              <button id="trimBtn" class="btn btn-outline-warning btn-sm">Trim to 280</button>
+              <button id="submitBtn" class="btn btn-primary btn-sm">Submit</button>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <div class="progress" style="height:10px">
+              <div id="progressBar" class="progress-bar" role="progressbar" style="width:0%"></div>
+            </div>
+            <small id="hint" class="muted d-block mt-2">Tip: paste long text and click <strong>Trim to 280</strong> or press <strong>Submit</strong>.</small>
+          </div>
+        </div>
+
+        <!-- Result / preview -->
+        <div class="card p-3">
+          <h5 class="mb-2">Preview / Result</h5>
+          <div id="resultInfo" class="mb-2 muted">Nothing submitted yet.</div>
+          <pre id="preview" class="mb-0">—</pre>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal to show trimmed message -->
+  <div class="modal fade" id="trimModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title">Trimmed to 280 characters</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="muted mb-1">We trimmed the extra characters and put the result below.</p>
+          <pre id="modalTrimmed"></pre>
+        </div>
+        <div class="modal-footer">
+          <button id="copyTrim" class="btn btn-sm btn-outline-light">Copy trimmed text</button>
+          <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS (with Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Elements
+    const tweet = document.getElementById('tweet');
+    const status = document.getElementById('status');
+    const progressBar = document.getElementById('progressBar');
+    const preview = document.getElementById('preview');
+    const resultInfo = document.getElementById('resultInfo');
+    const trimBtn = document.getElementById('trimBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const modalTrimmed = document.getElementById('modalTrimmed');
+    const copyTrim = document.getElementById('copyTrim');
+
+    const MAX = 280;
+    const trimModal = new bootstrap.Modal(document.getElementById('trimModal'));
+
+    // Update function: length, left, progress
+    function updateCounter() {
+      const text = tweet.value || '';
+      const len = text.length;
+      const left = MAX - len;
+      status.textContent = len + " / " + MAX + (left < 0 ? " (over by " + Math.abs(left) + ")" : "");
+      // progress percentage (capped)
+      let pct = Math.min(100, (len / MAX) * 100);
+      progressBar.style.width = pct + "%";
+      // color progress bar
+      progressBar.className = 'progress-bar ' + (len > MAX ? 'bg-danger' : 'bg-success');
+
+      // live preview small snippet
+      preview.textContent = text.length ? (text.length > 500 ? text.slice(0, 500) + "..." : text) : "—";
+    }
+
+    // Trim to MAX
+    function trimToMax(showModal = true) {
+      const text = tweet.value || '';
+      if (text.length <= MAX) {
+        // nothing to trim
+        resultInfo.textContent = "Text is within limit. No trimming needed.";
+        return;
+      }
+      const trimmed = text.slice(0, MAX);
+      tweet.value = trimmed;
+      updateCounter();
+      // show trimmed in modal
+      modalTrimmed.textContent = trimmed;
+      if (showModal) trimModal.show();
+      resultInfo.textContent = "Text was too long and has been trimmed to 280 characters.";
+    }
+
+    // Submit behavior
+    function submitPost() {
+      const text = tweet.value || '';
+      if (text.length === 0) {
+        resultInfo.textContent = "You didn't write anything. Type your post first.";
+        return;
+      }
+      if (text.length > MAX) {
+        // automatically trim then show modal
+        trimToMax(true);
+        return;
+      }
+      // normal submit: show in preview area and summary
+      resultInfo.textContent = "Submitted (" + text.length + " chars).";
+      preview.textContent = text;
+    }
+
+    // copy trimmed text button
+    copyTrim.addEventListener('click', () => {
+      const t = modalTrimmed.textContent || "";
+      navigator.clipboard?.writeText(t)
+        .then(() => { copyTrim.textContent = "Copied ✓"; setTimeout(()=> copyTrim.textContent = "Copy trimmed text", 1400); })
+        .catch(()=> { copyTrim.textContent = "Copy failed"; });
+    });
+
+    // Events
+    tweet.addEventListener('input', updateCounter);
+    trimBtn.addEventListener('click', () => trimToMax(true));
+    submitBtn.addEventListener('click', submitPost);
+
+    // init
+    updateCounter();
+  </script>
+</body>
+</html>
