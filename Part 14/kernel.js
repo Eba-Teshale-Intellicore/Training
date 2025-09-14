@@ -47,7 +47,7 @@ function main() {
    move();
    putBall();
 }
-```
+// ```
 
 // 👉 This tells Karel: move forward, turn left, move again, and drop a ball.
 
