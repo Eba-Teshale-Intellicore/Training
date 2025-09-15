@@ -54,3 +54,26 @@
 
 </body>
 </html>
+
+<!--  Its JS part only for reference
+🥛 Example: Buy milk with money
+function getMilk(money, costPerBottle) {
+    // How many bottles can we buy?
+    var numberOfBottles = Math.floor(money / costPerBottle);
+
+    // How much money will be left?
+    var change = money % costPerBottle;
+
+    console.log("You gave me $" + money);
+    console.log("Each bottle costs $" + costPerBottle);
+    console.log("I will buy " + numberOfBottles + " bottles of milk.");
+    console.log("And your change is $" + change);
+
+    // return the change to the caller
+    return change;
+}
+
+// Call the function
+var changeLeft = getMilk(10, 1.5);
+
+console.log("Keep your $" + changeLeft + " safe!"); -->
