@@ -28,3 +28,5 @@ document.getElementById("calculateBtn").addEventListener("click", function() {
   // Display on the page
   document.getElementById("result").textContent = nam1 + " ❤️ " + nam2 + " = " + n + "%";
 });
+
+
