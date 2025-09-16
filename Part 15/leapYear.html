@@ -2,39 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leap Year Checker</title>
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
   <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card shadow">
-          <div class="card-body">
-            <h1 class="card-title text-center mb-4">Leap Year Checker</h1>
-            
-            <div class="mb-3">
-              <label for="yearInput" class="form-label">Enter a year:</label>
-              <input type="number" id="yearInput" class="form-control" placeholder="e.g. 2024">
-            </div>
-            
-            <div class="d-grid mb-3">
-              <button id="checkBtn" class="btn btn-primary">Check</button>
-            </div>
-            
-            <div id="result" class="alert d-none" role="alert"></div>
-          </div>
-        </div>
+    <h1 class="text-center mb-4">Leap Year Checker</h1>
+
+    <div class="card p-4 shadow-sm">
+      <div class="mb-3">
+        <label for="yearInput" class="form-label">Enter a Year:</label>
+        <input type="number" class="form-control" id="yearInput" placeholder="e.g., 2000">
       </div>
+      <button id="checkBtn" class="btn btn-primary">Check Leap Year</button>
+
+      <div id="result" class="mt-4 p-3 border rounded bg-white"></div>
     </div>
   </div>
 
-  <!-- Bootstrap JS (optional, for nice components) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Your custom JS -->
+  <!-- Bootstrap JS (optional, for components) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="leapYear.js"></script>
 </body>
 </html>

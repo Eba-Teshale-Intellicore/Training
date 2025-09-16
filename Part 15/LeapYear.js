@@ -15,44 +15,75 @@
 // console.log(2024, "→", isLeapYear(2024)); // true
 // console.log(2023, "→", isLeapYear(2023)); // false
 
-function isLeapYear(year) {
-  if (year % 400 === 0) {
-    return true;
-  } else if (year % 100 === 0) {
-    return false;
-  } else if (year % 4 === 0) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-document.getElementById("checkBtn").addEventListener("click", function () {
-  const yearInput = document.getElementById("yearInput").value;
+document.getElementById("checkBtn").addEventListener("click", function() {
+  const year = parseInt(document.getElementById("yearInput").value);
   const resultDiv = document.getElementById("result");
 
-  if (!yearInput) {
-    resultDiv.textContent = "⚠️ Please enter a year.";
-    resultDiv.className = "alert alert-warning";
-    resultDiv.classList.remove("d-none");
-    return;
-  }
-
-  const year = parseInt(yearInput);
   if (isNaN(year)) {
-    resultDiv.textContent = "⚠️ Invalid input.";
-    resultDiv.className = "alert alert-danger";
-    resultDiv.classList.remove("d-none");
+    resultDiv.innerHTML = `<div class="alert alert-warning">Please enter a valid year!</div>`;
     return;
   }
 
-  if (isLeapYear(year)) {
-    resultDiv.textContent = year + " is a Leap Year! 🎉";
-    resultDiv.className = "alert alert-success";
-  } else {
-    resultDiv.textContent = year + " is NOT a Leap Year.";
-    resultDiv.className = "alert alert-danger";
-  }
+  let explanation = `<ul>`;
+  explanation += `<li>Divisible by 4: ${year % 4 === 0 ? "Yes" : "No"}</li>`;
+  explanation += `<li>Divisible by 100: ${year % 100 === 0 ? "Yes" : "No"}</li>`;
+  explanation += `<li>Divisible by 400: ${year % 400 === 0 ? "Yes" : "No"}</li>`;
+  explanation += `</ul>`;
 
-  resultDiv.classList.remove("d-none");
+  if (year % 400 === 0) {
+    resultDiv.innerHTML = `
+      <div class="alert alert-success">
+        <strong>${year} is a Leap Year!</strong>
+        ${explanation}
+      </div>
+    `;
+  } else if (year % 100 === 0) {
+    resultDiv.innerHTML = `
+      <div class="alert alert-danger">
+        <strong>${year} is NOT a Leap Year!</strong>
+        ${explanation}
+      </div>
+    `;
+  } else if (year % 4 === 0) {
+    resultDiv.innerHTML = `
+      <div class="alert alert-success">
+        <strong>${year} is a Leap Year!</strong>
+        ${explanation}
+      </div>
+    `;
+  } else {
+    resultDiv.innerHTML = `
+      <div class="alert alert-danger">
+        <strong>${year} is NOT a Leap Year!</strong>
+        ${explanation}
+      </div>
+    `;
+  }
 });
+
+
+    // The flow of Leap Year Calcu
+//            ┌─────────────┐
+//            │  Year Input │
+//            └─────┬───────┘
+//                  │
+//                  ▼
+//            ┌─────────────┐
+//            │ Divisible by│
+//            │  4?         │
+//            └─────┬───────┘
+//          Yes │       │ No
+//              ▼       ▼
+//      ┌─────────────┐  Not Leap Year
+//      │ Divisible by│
+//      │ 100?        │
+//      └─────┬───────┘
+//    Yes │         │ No
+//        ▼         ▼
+//  ┌─────────────┐  Leap Year
+//  │ Divisible by│
+//  │ 400?        │
+//  └─────┬───────┘
+// Yes │     │ No
+//    ▼       ▼
+// Leap Year  Not Leap Year
