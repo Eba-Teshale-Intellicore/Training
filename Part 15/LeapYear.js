@@ -87,3 +87,20 @@ document.getElementById("checkBtn").addEventListener("click", function() {
 // Yes │     │ No
 //    ▼       ▼
 // Leap Year  Not Leap Year
+
+
+function isleap(Year){
+  if (year % 4 === 0){
+    if (year % 100 ===0){
+      if (year % 400 === 0){
+        return "Leap Year"
+      }else{
+        return "Not leap Year"
+      }
+    }else{
+      return "Leap Year"
+    }
+  } else{
+    return "Not leap Year"
+  }
+}
