@@ -1,0 +1,44 @@
+body {
+    background-color: rgb(40, 40, 46);
+    margin: 10px;
+    color: rgb(4, 196, 202);
+    font-family: Arial, sans-serif;
+}
+
+.fstage {
+    text-align: center;   /* centers inline elements (like text, inline-blocks, images) */
+    margin-top: 50px;
+}
+
+#play1, #play2 {
+    display: inline-block;   /* makes them sit side by side */
+    margin: 20px;            /* space between them */
+    text-align: center;      /* center content inside each box */
+}
+
+img {
+    height: 100px;
+}
+
+footer {
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+}
+
+button {
+    display: block;         /* makes button a block element */
+    margin: 20px auto;      /* centers it horizontally */
+    padding: 10px 20px;
+    background-color: rgb(4, 196, 202);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background-color: rgb(2, 150, 155);
+}
