@@ -1,15 +1,39 @@
 // Loop through all elements with the class "drum"
 for (let i = 0; i < document.querySelectorAll(".drum").length; i++) {
 
-    // Add a click event listener to each button
-    document.querySelectorAll("button")[i].addEventListener("click", handleClick);
+    document.querySelectorAll(".drum")[i].addEventListener("click", handleClick);
 
-    // Function to handle the click event
     function handleClick() {
-        // Create a new audio object with the snare sound
-        var audio = new Audio("sounds/snare.mp3");
+        var buttonInnerHTML = this.innerHTML;
 
-        // Play the audio when the button is clicked
-        audio.play();
-    };
+        switch (buttonInnerHTML) {
+            case "w":
+                new Audio("sounds/tom-1.mp3").play();
+                break;
+            case "a":
+                new Audio("sounds/tom-2.mp3").play();
+                break;
+            case "s":
+                new Audio("sounds/tom-3.mp3").play();
+                break;
+            case "d":
+                new Audio("sounds/tom-4.mp3").play();
+                break;
+            case "j":
+                new Audio("sounds/crash.mp3").play();
+                break;
+            case "k":
+                new Audio("sounds/kick-bass.mp3").play();
+                break;
+            case "l":
+                new Audio("sounds/snare.mp3").play();
+                break;
+            default:
+                console.log(buttonInnerHTML);
+        }
+    }
 }
+
+document.addEventListener("keypress", function(){
+    alert("key was pressed !!!");
+})
